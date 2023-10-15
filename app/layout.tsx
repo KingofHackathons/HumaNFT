@@ -38,6 +38,19 @@ export default function RootLayout({
       <body className={`${roboto.className} bg-primary`}>
         <Header hideFox={hideFox} />
         {children}
+        <span
+          className="taipy-watermark"
+          style={{
+            position: 'fixed',
+            bottom: '1em',
+            color: 'white',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '0.7em',
+          }}
+        >
+          Taipy inside
+        </span>
       </body>
     </html>
   );
