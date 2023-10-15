@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
+import { NFTStorage, File, Blob } from 'nft.storage';
 
 function createInitialPrompt() {
   const projectAnswers = JSON.parse(localStorage.getItem('projectAnswers') || "{}");
@@ -28,7 +29,35 @@ function createInitialPrompt() {
       Their biggest flaws are ${indivAnswers.iquestion7}
   `;
 
+  localStorage.setItem("currentSystemPrompt", finalPrompt);
   return [{role: "system", content: finalPrompt}];
+}
+
+async function getImage() {
+  const imageOriginUrl = localStorage.getItem("selectedNFTImage") || "";
+  const r = await fetch(imageOriginUrl);
+  if (!r.ok) {
+    throw new Error(`error fetching image: ${r.status}`)
+  }
+  return r.blob()
+}
+
+async function storeImageonIPFS() {
+  const image = await getImage();
+  const prompt = localStorage.getItem("currentSystemPrompt") || "";
+
+  const nft = {
+    image, // use image Blob as `image` field
+    name: "Storing the first AI NFT with its prompt for GPT-3.5",
+    description: prompt
+  };
+
+  const client = new NFTStorage({ token: process.env.NFT_STORAGE_TOKEN || "" });
+  const metadata = await client.store(nft)
+
+  console.log('NFT data stored!')
+  console.log('Metadata URI: ', metadata.url);
+  return metadata.embed().image.href;
 }
 
 export default function Home() {
@@ -36,6 +65,9 @@ export default function Home() {
   const [messages, setMessages] = useState(() => createInitialPrompt()); // An array of the messages that make up the chat
   const [newMessageText, setNewMessageText] = useState("");
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [nftLink, setNftLink] = useState("");
+  const nftImgLink = localStorage.getItem("selectedNFTImage") || "";
+  const nftName = localStorage.getItem("selectedNFTText") || "";
 
   // `onChange` event handler to update `newMessageText` as the user types
   const onChange = (event) => {
@@ -137,12 +169,19 @@ export default function Home() {
   }, [newMessageText]);
 
   return (
-    <main className="mx-auto h-screen max-w-full sm:max-w-3xl">
-      <div className="py-8">
-        <h1 className="text-center text-6xl font-bold text-white">
-          NFT Playground
-        </h1>
-      </div>
+    <main className="mx-auto max-w-full sm:max-w-3xl">
+
+      {messages.length===1 && (
+        <div className="mx-10 mt-20 flex flex-col items-center">
+          <div>
+            <h1 className="text-white mb-1 text-2xl">Let's checkout {nftName}'s new persona</h1>
+          </div>
+          <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-0.5 border-none rounded-lg w-1/2 h-1/4'>
+              <div className='border-none rounded-lg overflow-hidden w-1/2 h-1/4'></div>
+              <img className="object-scale-down" src={nftImgLink}/>
+          </div>
+        </div>
+      )}
 
       <div id="overallDiv" className="flex flex-col">
         <div>
@@ -161,28 +200,27 @@ export default function Home() {
 
         {loadingStatus && (
           <div className="mx-2 mt-4 float-left clear-both">
-            <p className="font-bold">Waiting for reply...</p>
+            <p className="font-bold text-white">Waiting for reply...</p>
           </div>
         )}
 
         {!loadingStatus && messages.length > 1 && (
           <div className="mt-4 flex justify-center">
-            <button
-              className="h-11 rounded-md border-2 border-gray-500
-                          bg-gray-500 px-1 py-1 hover:border-gray-600 
-                          hover:bg-gray-600"
-              onClick={onClick}
-            >
-              <p className="font-bold text-white">New chat</p>
-            </button>
+            <Button className='text-lg py-0 text-white mr-2' onClick={onClick} variant="outline">New Chat</Button>
+            <Button className='text-lg py-0 text-white' variant="outline" onClick={async ()=>{
+              const storageURL = await storeImageonIPFS();
+              setNftLink(storageURL);
+            }}>Mint your Persona</Button>
           </div>
         )}
+
+        {nftLink!=="" && <p className="text-l text-white">The URL of the image is <a href={nftLink}>{nftLink}</a></p>}
       </div>
 
       <div ref={whitespaceRef} className="z-0"></div>
       <div
         ref={backgroundRef}
-        className="fixed bottom-0 z-10 w-full max-w-full bg-white/75
+        className="fixed bottom-0 z-10 w-full max-w-full
                      sm:max-w-3xl"
       ></div>
 
@@ -199,13 +237,13 @@ export default function Home() {
             value={newMessageText}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            placeholder="Why is the sky blue?"
+            placeholder="Start chatting"
           />
 
           {loadingStatus ? (
-            <Button variant="outline" type="submit" disabled>Send</Button>
+            <Button className='text-lg py-0 text-white' variant="outline"  type="submit" disabled>Send</Button>
           ) : (
-            <Button variant="outline" type="submit">Send</Button>
+            <Button className='text-lg py-0 text-white' variant="outline" type="submit">Send</Button>
           )}
         </form>
       </div>

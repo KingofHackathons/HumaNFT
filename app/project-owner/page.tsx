@@ -45,9 +45,9 @@ export default function ProfileForm() {
   }
   return (
     <>
-    <div className="flex items-center h-screen w-full bg-gradient-to-br from-black to-blue-400">
-      <div className="w-full bg-white rounded shadow-lg p-10 m-10">
-        <h1 className="block text-3xl w-full text-center text-grey-darkest mb-6">Project Owner Signup</h1>
+    <div className="flex items-center h-full w-full text-white">
+      <div className="w-1/2 bg-none rounded p-10 mr-auto ml-auto">
+        {/* <h1 className="block text-3xl w-full text-center text-grey-darkest mb-6">Project Owner Signup</h1> */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="flex flex-col mb-4">
@@ -56,9 +56,9 @@ export default function ProfileForm() {
               name="pquestion1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 font-bold text-grey-darkest" >Great!  Now, help your holders out by providing some of the story behind the collection.  What is the lore or storytelling. What has happened to date within the history of the collection?</FormLabel>
+                  <FormLabel className="text-xl" >Help your holders out by providing some of the story behind the collection.  What is the lore or storytelling. What has happened to date within the history of the collection?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 text-grey-darkest" placeholder="Please type out your answer here." {...field} />
+                    <Input className="border text-black mt-4 py-2 px-3 placeholder-white p-2" placeholder="Please type out your answer here." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,9 +71,9 @@ export default function ProfileForm() {
               name="pquestion2"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 font-bold text-grey-darkest" >Great, now its time to create some scenarios.  Describe a few settings where your NFTs might interact?  For example on a foreign planet that is full of enriching scoozy crystals or in a metaverse world called MetaLand that features high stakes casinos and race cars.    With each scenario you can describe a goal that your NFT owners can try to accomplish through interacting with each other.</FormLabel>
+                  <FormLabel className="text-xl" >Great, now its time to create some scenarios.  Describe a few settings where your NFTs might interact?  For example on a foreign planet that is full of enriching scoozy crystals or in a metaverse world called MetaLand that features high stakes casinos and race cars.    With each scenario you can describe a goal that your NFT owners can try to accomplish through interacting with each other.</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 text-grey-darkest" placeholder="Please type out your answer here." {...field} />
+                    <Input className="border text-black mt-4 py-2 px-3 placeholder-white p-2" placeholder="Please type out your answer here." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,9 +86,9 @@ export default function ProfileForm() {
               name="pquestion3"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 font-bold text-grey-darkest" >Would you like to include a prize for users that complete the challenge?  If so, please specify what the prize would be.</FormLabel>
+                  <FormLabel className="text-xl" >Would you like to include a prize for users that complete the challenge?  If so, please specify what the prize would be.</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 text-grey-darkest" placeholder="Please type out your answer here." {...field} />
+                    <Input className="border text-black mt-4 py-2 px-3 placeholder-white p-2" placeholder="Please type out your answer here." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,7 +96,7 @@ export default function ProfileForm() {
             />
             </div>
             <div className="flex flex-col items-center">
-              <Button variant="outline" type="submit">Submit</Button>
+              <Button className="text-lg py-0" variant="outline" type="submit">Submit</Button>
             </div>
           </form>
         </Form>

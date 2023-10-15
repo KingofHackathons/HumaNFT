@@ -2,6 +2,7 @@
 
 import localFont from 'next/font/local'
 import Link from "next/link";
+import ActiveLink from '@/components/ActiveLink';
 import { Button } from "@/components/ui/button"
 
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
@@ -38,7 +39,7 @@ export function Header({
       <div className={`${hideFox ? 'absolute top-0 right-0' : ''}`}>
         <WagmiConfig config={wagmiConfig}>
           <div data-cy='header' className={`${futura.className} flex flex-row gap-2 text-white h-28 items-center my-5 pr-5`}>
-            <div className={`${hideFox ? 'hidden' : ''}`}>
+          <div className={`${hideFox ? 'hidden' : ''}`}>
               <Link href="/">
                 <img className='w-28 h-28' src='./logo.png' />
               </Link>
@@ -50,19 +51,19 @@ export function Header({
             </div>
             <div className='grow'></div>
             <div className='flex flex-row gap-20 text-lg uppercase tracking-widest items-center'>
-              <Link href="/project-owner">
+              <ActiveLink activeClassName='underline underline-offset-8' href="/project-owner">
                 Project Owners
-              </Link>
-              <Link href="/individual-owner">
+              </ActiveLink>
+              <ActiveLink activeClassName='underline underline-offset-8' href="/individual-owner">
                 NFT Owners
-              </Link>
-              <Link href="/playground">
+              </ActiveLink>
+              <ActiveLink activeClassName='underline underline-offset-8' href="/playground">
                 Playground
-              </Link>
+              </ActiveLink>
               <Button className='uppercase text-lg py-0' variant="outline" onClick={() => open()}>Connect Wallet</Button>
             </div>
           </div>
-        </WagmiConfig>
+      </WagmiConfig>
       </div>
       <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
     </>

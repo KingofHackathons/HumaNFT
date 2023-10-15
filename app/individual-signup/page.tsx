@@ -18,27 +18,27 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
 const formSchema = z.object({
-  //iquestion1: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion2: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion3: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion4: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion5: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion6: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
-  //iquestion7: z.string().min(10, {
-    //message: "The answer should be a minimum 10 characters",
-  //}),
+  iquestion1: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion2: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion3: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion4: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion5: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion6: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
+  iquestion7: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
+  }),
 })
 
 export default function IndividualForm() {
@@ -70,8 +70,8 @@ export default function IndividualForm() {
   return (
     <>
     <div className="flex items-center h-full w-full text-white">
-      <div className="w-1/2 bg-none rounded p-10 m-10 mr-auto ml-auto">
-        <h1 className="block text-5xl w-full text-center text-white mb-12">Individual Owner Signup</h1>
+      <div className="w-1/2 bg-none rounded p-10 mr-auto ml-auto">
+        {/* <h1 className="block text-5xl w-full text-center text-white mb-12">Individual Owner Signup</h1> */}
         <Form {...indvForm}>
           <form onSubmit={indvForm.handleSubmit(onSubmitForm)} className="space-y-8 text-lg">
           <div className="flex flex-col mb-4">
@@ -80,9 +80,9 @@ export default function IndividualForm() {
               name="iquestion1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl" >Please provide a short Description of your NFT's Character:</FormLabel>
+                  <FormLabel className="text-xl" >Please provide a short description of your NFT's Character:</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -95,9 +95,9 @@ export default function IndividualForm() {
               name="iquestion2"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl" >Tell us about your character's origin story. Where were they born? What was their upbringing like?</FormLabel>
+                  <FormLabel className="text-xl" >Tell us about your character's origin story. Where were they born? What was their upbringing like?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,9 +110,9 @@ export default function IndividualForm() {
               name="iquestion3"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl" >What drives your character? What are their goals or dreams?</FormLabel>
+                  <FormLabel className="text-xl" >What drives your character? What are their goals or dreams?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,9 +125,9 @@ export default function IndividualForm() {
               name="iquestion4"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl">Does your character have any key relationships?  Do they have a family, a lover, a nemesis?  Tell us about their social circle?</FormLabel>
+                  <FormLabel className="text-xl">Does your character have any key relationships?  Do they have a family, a lover, a nemesis?  Tell us about their social circle?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -140,9 +140,9 @@ export default function IndividualForm() {
               name="iquestion5"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl">How does your character respond in stressful situations?</FormLabel>
+                  <FormLabel className="text-xl">How does your character respond in stressful situations?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -155,9 +155,9 @@ export default function IndividualForm() {
               name="iquestion6"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl">How does your character feel about meeting others?</FormLabel>
+                  <FormLabel className="text-xl">How does your character feel about meeting others?</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -170,9 +170,9 @@ export default function IndividualForm() {
               name="iquestion7"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-2 text-xl">Please describe any flaws of your character</FormLabel>
+                  <FormLabel className="text-xl">Please describe any flaws of your character</FormLabel>
                   <FormControl>
-                    <Input className="border py-2 px-3 placeholder-white p-6" placeholder="" {...field} />
+                    <Input className="border mt-4 py-2 px-3 text-black placeholder-white p-2" placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -180,7 +180,7 @@ export default function IndividualForm() {
             />
           </div>
             <div className="flex flex-col items-center">
-              <Button variant="outline" type="submit">Submit</Button>
+              <Button className="text-lg py-0" variant="outline" type="submit">Submit</Button>
             </div>
           </form>
         </Form>
