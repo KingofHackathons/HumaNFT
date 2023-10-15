@@ -1,6 +1,6 @@
 "use client";
 
-// Code taken from https://github.com/david-j-wu/gpt-chatbot/
+// Code taken and modified from https://github.com/david-j-wu/gpt-chatbot/
 
 import { useState, useEffect, useRef } from "react";
 
@@ -9,14 +9,31 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 
+function createInitialPrompt() {
+  const projectAnswers = JSON.parse(localStorage.getItem('projectAnswers') || "{}");
+  const indivAnswers = JSON.parse(localStorage.getItem('individualAnswers') || "{}");
+
+  console.log("The stored details are", projectAnswers, indivAnswers);
+
+  const finalPrompt = `
+      The conversation below will take place in a world where the following has happened: ${projectAnswers.pquestion1}
+      Specifically, this conversation is taking place within the following scenario: ${projectAnswers.pquestion2}
+      
+      When you respond to this question, imagine you are a ${indivAnswers.iquestion1}
+      This person's backstory is ${indivAnswers.iquestion2}
+      This person has certain goals and is driven by ${indivAnswers.iquestion3}
+      The people that matter the most to them are ${indivAnswers.iquestion4}
+      In stressful situations, they ${indivAnswers.iquestion5}
+      When they meet others they feel ${indivAnswers.iquestion6}
+      Their biggest flaws are ${indivAnswers.iquestion7}
+  `;
+
+  return [{role: "system", content: finalPrompt}];
+}
+
 export default function Home() {
   // State variables
-  const [messages, setMessages] = useState([
-    {
-      role: "system",
-      content: "You are a chatbot that is helpful and replies concisely",
-    },
-  ]); // An array of the messages that make up the chat
+  const [messages, setMessages] = useState(() => createInitialPrompt()); // An array of the messages that make up the chat
   const [newMessageText, setNewMessageText] = useState("");
   const [loadingStatus, setLoadingStatus] = useState(false);
 
@@ -27,12 +44,7 @@ export default function Home() {
 
   // `onClick` event handler to create a new chat
   const onClick = () => {
-    setMessages([
-      {
-        role: "system",
-        content: "You are a chatbot that is helpful and replies concisely",
-      },
-    ]);
+    setMessages(() => createInitialPrompt());
     setNewMessageText("");
   };
 
@@ -127,42 +139,45 @@ export default function Home() {
   return (
     <main className="mx-auto h-screen max-w-full sm:max-w-3xl">
       <div className="py-8">
-        <h1 className="text-center text-6xl font-bold text-blue-500">
+        <h1 className="text-center text-6xl font-bold text-white">
           NFT Playground
         </h1>
       </div>
 
-      <div>
-        {messages.slice(1).map((message, index) => (
-          <div className="mx-2 my-4" key={index.toString()}>
-            <p className="font-bold">
-              {message.role === "assistant" ? "GPT Chatbot" : "You"}
-            </p>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {message.content}
-            </ReactMarkdown>
+      <div id="overallDiv" className="flex flex-col">
+        <div>
+          {messages.slice(1).map((message, index) => (
+            <div className={message.role==="assistant" ? 
+                  "rounded-md shadow-lg p-4 mx-2 my-4 float-left clear-both bg-white" : "rounded-md shadow-lg p-4 mx-2 my-4 float-right clear-both bg-white"} key={index.toString()}>
+              <p className="font-bold">
+                {message.role === "assistant" ? "The Storyteller" : "You"}
+              </p>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {message.content}
+              </ReactMarkdown>
+            </div>
+          ))}
+        </div>
+
+        {loadingStatus && (
+          <div className="mx-2 mt-4 float-left clear-both">
+            <p className="font-bold">Waiting for reply...</p>
           </div>
-        ))}
+        )}
+
+        {!loadingStatus && messages.length > 1 && (
+          <div className="mt-4 flex justify-center">
+            <button
+              className="h-11 rounded-md border-2 border-gray-500
+                          bg-gray-500 px-1 py-1 hover:border-gray-600 
+                          hover:bg-gray-600"
+              onClick={onClick}
+            >
+              <p className="font-bold text-white">New chat</p>
+            </button>
+          </div>
+        )}
       </div>
-
-      {loadingStatus && (
-        <div className="mx-2 mt-4">
-          <p className="font-bold">GPT Chatbot is replying...</p>
-        </div>
-      )}
-
-      {!loadingStatus && messages.length > 1 && (
-        <div className="mt-4 flex justify-center">
-          <button
-            className="h-11 rounded-md border-2 border-gray-500
-                         bg-gray-500 px-1 py-1 hover:border-gray-600 
-                         hover:bg-gray-600"
-            onClick={onClick}
-          >
-            <p className="font-bold text-white">New chat</p>
-          </button>
-        </div>
-      )}
 
       <div ref={whitespaceRef} className="z-0"></div>
       <div
@@ -188,13 +203,7 @@ export default function Home() {
           />
 
           {loadingStatus ? (
-            <button
-              className="h-11 rounded-md border-2 border-blue-400
-                         bg-blue-400 px-1 py-1"
-              disabled
-            >
-              <p className="font-bold text-white">Send</p>
-            </button>
+            <Button variant="outline" type="submit" disabled>Send</Button>
           ) : (
             <Button variant="outline" type="submit">Send</Button>
           )}

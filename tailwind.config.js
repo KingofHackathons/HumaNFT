@@ -13,6 +13,15 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'metaverse': "url('/background.png')",
+      },
+      backgroundColor: {
+        'primary': '#0c0316',  // gray-900
+        'secondary': '#2D3748', // gray-800
+        'hover-state': '#2C3E50', // a custom color for hover state
+        'active-state': '#4A5568' // a custom color for active state
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,11 +56,6 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {

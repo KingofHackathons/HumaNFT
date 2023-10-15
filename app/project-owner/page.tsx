@@ -16,11 +16,11 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
 const formSchema = z.object({
-  pquestion1: z.string().min(100, {
-    message: "The answer should be a minimum 100 characters",
+  pquestion1: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
   }),
-  pquestion2: z.string().min(100, {
-    message: "The answer should be a minimum 100 characters",
+  pquestion2: z.string().min(10, {
+    message: "The answer should be a minimum 10 characters",
   }),
   pquestion3: z.string().min(10, {
     message: "The answer should be a minimum 10 characters",
@@ -39,7 +39,9 @@ export default function ProfileForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+    console.log("Storing values", values);
+    localStorage.setItem('projectAnswers', JSON.stringify(values));
+
   }
   return (
     <>
@@ -94,7 +96,7 @@ export default function ProfileForm() {
             />
             </div>
             <div className="flex flex-col items-center">
-              <Button className="" variant="outline" type="submit">Submit</Button>
+              <Button variant="outline" type="submit">Submit</Button>
             </div>
           </form>
         </Form>

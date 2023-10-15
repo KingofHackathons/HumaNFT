@@ -10,9 +10,7 @@ export async function POST(request: NextRequest) {
         apiKey: process.env.OPENAI_API_KEY,
     });
 
-    const { messages, formDetails } = await request.json();
-
-    const initialSystemPrompt = `The name of the user is ${formDetails.ownerName}`
+    const { messages } = await request.json();
 
     const chatCompletion = await openai.chat.completions.create({
         messages,
