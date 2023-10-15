@@ -2,8 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './app/**/*.{ts,tsx}',
-	],
+    "./app/**/*.{ts,tsx}",
+    "./matlab/templates/**/*.html",
+    "./matlab/static/src/**/*.js",
+  ],
   theme: {
     container: {
       center: true,
@@ -14,13 +16,13 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'metaverse': "url('/background.png')",
+        metaverse: "url('/background.png')",
       },
       backgroundColor: {
-        'primary': '#0c0316',  // gray-900
-        'secondary': '#2D3748', // gray-800
-        'hover-state': '#2C3E50', // a custom color for hover state
-        'active-state': '#4A5568' // a custom color for active state
+        primary: "#0c0316", // gray-900
+        secondary: "#2D3748", // gray-800
+        "hover-state": "#2C3E50", // a custom color for hover state
+        "active-state": "#4A5568", // a custom color for active state
       },
       colors: {
         border: "hsl(var(--border))",
@@ -74,4 +76,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
