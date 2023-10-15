@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.spa {
+    padding: 25px;
+  }
+  
+  p {
+    padding: 25px;
+  }
