@@ -57,11 +57,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.spa {
-  padding: 10px;
-}
-
-p {
-  padding: 10px;
-}

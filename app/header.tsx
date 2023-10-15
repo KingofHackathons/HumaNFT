@@ -41,19 +41,16 @@ export function Header({
           <div data-cy='header' className={`${futura.className} flex flex-row gap-2 text-white h-28 items-center my-5 pr-5`}>
           <div className={`${hideFox ? 'hidden' : ''}`}>
               <Link href="/">
-                <img className='w-28 h-28' src='./logo.jpeg' />
+                <img className='w-28 h-28' src='./logo.png' />
               </Link>
             </div>
             <div className={`${hideFox ? 'hidden' : ''} text-3xl`}>
               <Link href="/">
-                HumaNFT
+                ConsciousNFT
               </Link>
             </div>
             <div className='grow'></div>
             <div className='flex flex-row gap-20 text-lg uppercase tracking-widest items-center'>
-              <ActiveLink activeClassName='underline underline-offset-8' href="http://127.0.0.1:5000/">
-                Value Tracking
-              </ActiveLink>
               <ActiveLink activeClassName='underline underline-offset-8' href="/project-owner">
                 Project Owners
               </ActiveLink>
