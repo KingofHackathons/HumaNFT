@@ -43,6 +43,39 @@ function IndividualOwner() {
     localStorage.setItem("selectedNFTText", name);
   };
 
+  const nft = [
+    {
+      name: 'NFT 1',
+      description: 'This is the first NFT',
+      asset_contract: '0x1234567890',
+      image_url: '1.jpeg'
+    },
+    {
+      name: 'NFT 2',
+      description: 'This is the second NFT',
+      asset_contract: '0x0987654321',
+      image_url: '2.jpeg'
+    },
+    {
+      name: 'NFT 3',
+      description: 'This is the third NFT',
+      asset_contract: '0xabcdef1234',
+      image_url: '3.jpeg'
+    },
+    {
+      name: 'NFT 4',
+      description: 'This is the fourth NFT',
+      asset_contract: '0x1234abcdef',
+      image_url: '4.jpeg'
+    },
+    {
+      name: 'NFT 5',
+      description: 'This is the fifth NFT',
+      asset_contract: '0x1234abcdef',
+      image_url: '5.jpeg'
+    }
+  ];
+
   return <>
     <div className='container h-screen mt-32' data-cy='individual-owner-container'>
 
@@ -51,7 +84,7 @@ function IndividualOwner() {
         <p className='text-sm text-white pt-2 pb-5'>Select an NFT to bring to life</p>
         <div className='w-full overflow-hidden flex flex-row gap-2'>
           {
-            nfts.map(({ 
+            nft.map(({ 
               name, 
               description, 
               asset_contract: assetContract, 
