@@ -14,6 +14,18 @@ NPC NFTs trained LLMs.
 
 ## Getting Started
 
+Copy the `.env.example` to `.env`:
+
+```
+$ cp .env.example .env
+```
+
+Run postgres docker:
+
+```
+$ docker run --name consciousnft -e POSTGRES_PASSWORD=ethglobal -d postgres
+```
+
 ```
 $ nvm use && npm install
 $ npm run dev
