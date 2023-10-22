@@ -16,7 +16,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        metaverse: "url('/background.png')",
+        metaverse: "url('/bg.png')",
       },
       backgroundColor: {
         primary: "#0c0316", // gray-900
